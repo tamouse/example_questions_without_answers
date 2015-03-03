@@ -11,7 +11,8 @@
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
-  before do
+  before(:all) do
+    Question.destroy_all
     FactoryGirl.create_list(:question_with_answers, 2)
     FactoryGirl.create(:question)
   end

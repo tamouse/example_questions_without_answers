@@ -1,7 +1,13 @@
-require 'faker'
+$answer_set = [
+  "red, no blue",
+  "42",
+  "African or European?",
+  "As you wish"
+]
+
 FactoryGirl.define do
   factory :answer do
-    answer { Faker::Lorem.sentence }
+    answer { $answer_set.sample(1) }
   end
 end
 
