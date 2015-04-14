@@ -37,6 +37,14 @@ scope :with_answers, ->{
 }
 ```
 
+Then you can use the scopes instead of the long expressions
+previously:
+
+``` ruby
+@unanswered = Question.with_no_answers
+```
+
+
 See `app/models/question.rb` and `spec/models/question_spec.rb` for
 details.
 
