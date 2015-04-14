@@ -22,9 +22,25 @@ Question.includes(:answers).where(answers: {id: nil})
 Question.includes(:answers).where.not(answers: {id: nil})
 ```
 
-See `spec/models/question_spec.rb` for details.
+## implementation as scopes:
 
-# Development
+[Rails scopes](http://api.rubyonrails.org/classes/ActiveRecord/Scoping/Named/ClassMethods.html#method-i-scope)
+provide the means to make this a bit more readable:
+
+``` ruby
+scope :with_no_answers, ->{
+  includes(:answers).where(answers: {id: nil})
+}
+
+scope :with_answers, ->{
+  includes(:answers).where.not(answers: {id: nil})
+}
+```
+
+See `app/models/question.rb` and `spec/models/question_spec.rb` for
+details.
+
+# Using this repo/Contributing
 
 This rails app is not intended for production. There is nothing
 configured for production, and no production.rb in environments.
@@ -52,6 +68,23 @@ $ bin/rake db:setup # may need db:drop first if already installed
 ```
 $ bin/rake
 ```
+
+## Contributing
+
+The usual mantra "fork it/branch it/write it/push it" should be
+followed. :)
+
+1. Fork <https://github.com/tamouse/example_questions_without_answers>.
+2. Make a branch for your changes.
+3. Edit and test your changes.
+4. Push your changed branch back to your repo.
+5. Open a Pull Request to this repo.
+
+Also, feel free to contribute to the
+[project wiki](https://github.com/tamouse/example_questions_without_answers/wiki)
+and ask questions on the
+[project issues](https://github.com/tamouse/example_questions_without_answers/issues).
+
 
 # Author
 

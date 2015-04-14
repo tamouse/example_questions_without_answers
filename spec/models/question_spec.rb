@@ -19,14 +19,27 @@ RSpec.describe Question, type: :model do
 
   it "finds 2 questions with answers" do
     with_answers = Question.includes(:answers).where.not(answers: { id: nil}).load
-    expect(with_answers.count).to eq(2),
-    "Expected 2 questions, got: #{with_answers.count}\n#{with_answers.map(&:id)}"
+    expect(with_answers.count).to eq(2), "Expected 2 questions, got: #{with_answers.count}\n#{with_answers.map(&:id)}"
   end
 
   it "finds 1 question without answers" do
     without_answers = Question.includes(:answers).where(answers: { id: nil}).load
-    expect(without_answers.count).to eq(1),
-    "Expected 1 question, got: #{without_answers.count}\n#{without_answers.map(&:id)}"
+    expect(without_answers.count).to eq(1), "Expected 1 question, got: #{without_answers.count}\n#{without_answers.map(&:id)}"
   end
 
+  describe "testing model scopes" do
+    describe "with_answers" do
+
+      it "finds 2 questions with answers" do
+        with_answers = Question.with_answers.load
+        expect(with_answers.count).to eq(2), "Expected 2 questions, got: #{with_answers.count}\n#{with_answers.map(&:id)}"
+      end
+
+      it "finds 1 question without answers" do
+        without_answers = Question.with_no_answers.load
+        expect(without_answers.count).to eq(1), "Expected 1 question, got: #{without_answers.count}\n#{without_answers.map(&:id)}"
+      end
+
+    end
+  end
 end

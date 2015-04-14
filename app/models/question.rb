@@ -10,4 +10,13 @@
 
 class Question < ActiveRecord::Base
   has_many :answers, dependent: :destroy
+
+  scope :with_no_answers, ->{
+    includes(:answers).where(answers: {id: nil})
+  }
+
+  scope :with_answers, ->{
+    includes(:answers).where.not(answers: {id: nil})
+  }
+
 end
